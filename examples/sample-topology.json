@@ -1,0 +1,74 @@
+{
+  "DBInstances": [
+    {
+      "DBInstanceIdentifier": "prod-db-1",
+      "DBInstanceClass": "db.r6g.xlarge",
+      "Engine": "postgres",
+      "EngineVersion": "16.4",
+      "DBInstanceStatus": "available",
+      "MultiAZ": true,
+      "StorageEncrypted": true,
+      "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012",
+      "AllocatedStorage": 500,
+      "StorageType": "gp3",
+      "Iops": 12000,
+      "BackupRetentionPeriod": 7,
+      "DeletionProtection": true,
+      "DBParameterGroups": [
+        {
+          "DBParameterGroupName": "custom-pg16",
+          "ParameterApplyStatus": "in-sync"
+        }
+      ],
+      "AvailabilityZone": "us-east-1a",
+      "SecondaryAvailabilityZone": "us-east-1b"
+    },
+    {
+      "DBInstanceIdentifier": "staging-db",
+      "DBInstanceClass": "db.t3.medium",
+      "Engine": "postgres",
+      "EngineVersion": "15.8",
+      "DBInstanceStatus": "available",
+      "MultiAZ": false,
+      "StorageEncrypted": false,
+      "AllocatedStorage": 50,
+      "StorageType": "gp2",
+      "BackupRetentionPeriod": 7,
+      "DeletionProtection": false,
+      "DBParameterGroups": [
+        {
+          "DBParameterGroupName": "default.postgres15",
+          "ParameterApplyStatus": "in-sync"
+        }
+      ],
+      "AvailabilityZone": "us-east-1a"
+    }
+  ],
+  "DBClusters": [
+    {
+      "DBClusterIdentifier": "analytics-cluster",
+      "Engine": "aurora-postgresql",
+      "EngineVersion": "16.4",
+      "Status": "available",
+      "StorageEncrypted": true,
+      "KmsKeyId": "arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012",
+      "BackupRetentionPeriod": 7,
+      "DeletionProtection": false,
+      "DBClusterMembers": [
+        {
+          "DBInstanceIdentifier": "analytics-cluster-writer",
+          "IsClusterWriter": true,
+          "DBClusterParameterGroupStatus": "in-sync"
+        }
+      ],
+      "MultiAZ": false
+    }
+  ],
+  "GlobalClusters": [],
+  "AccountAttributes": {
+    "DBInstances": { "Used": 12, "Max": 40 },
+    "DBClusters": { "Used": 5, "Max": 40 },
+    "ManualSnapshots": { "Used": 23, "Max": 100 },
+    "AllocatedStorage": { "Used": 2400, "Max": 102400 }
+  }
+}
