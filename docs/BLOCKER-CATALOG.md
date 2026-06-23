@@ -20,7 +20,7 @@ These affect in-region high availability and determine how long failover actuall
 | FT-06 | JVM default DNS TTL can be INFINITE | HIGH | Java apps never reconnect |
 | FT-07 | Aurora single-writer without readers: no failover target | CRITICAL | RTO: 10-15 min |
 | FT-08 | Aurora secondary cluster readers restart during primary failover | HIGH | Secondary unavailable during events |
-| FT-09 | Single-AZ RDS: AZ failure = snapshot restore required | CRITICAL | RTO: 30-60+ min |
+| FT-09 | Single-AZ RDS: AZ failure = snapshot restore required | CRITICAL | RTO: minutes to hours |
 
 ---
 
@@ -54,7 +54,7 @@ These create cascading failures that block entire DR paths.
 | EN-03 | Cross-region snapshot copy requires re-encryption | MEDIUM | Adds time + pre-provisioned key needed |
 | EN-04 | Unencrypted DBs cannot use cross-region replicas/Global DB | HIGH | Blocks ALL cross-region DR |
 | EN-05 | AWS-managed key (aws/rds) blocks cross-account backup copy | MEDIUM | Must use customer-managed CMK |
-| EN-06 | KMS inaccessible-encryption-credentials is TERMINAL for Global DB | CRITICAL | No recovery if key access lost |
+| EN-06 | KMS inaccessible-encryption-credentials status that is not recovered in 7 days  is TERMINAL for Global DB | CRITICAL | No recovery if key access lost |
 
 ---
 
