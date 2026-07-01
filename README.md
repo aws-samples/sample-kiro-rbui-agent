@@ -24,7 +24,7 @@ The agent discovers your RDS topology, maps it against 57 known blockers, comput
 
 2. **Start Kiro CLI:**
    ```bash
-   kiro chat
+   kiro-cli  chat  --agent rbui-agent
    ```
 
 3. **Invoke the agent** (Ctrl+Shift+B) or ask:
