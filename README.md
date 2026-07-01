@@ -14,6 +14,9 @@ COLLECT → CLASSIFY → CALCULATE → REPORT
 
 The agent discovers your RDS topology, maps it against 57 known blockers, computes realistic RTO/RPO values, and produces a prioritized remediation plan with AWS CLI commands.
 
+
+The prerequisite of this agent is to install Kiro CLI from https://kiro.dev/
+
 ## Quick Start
 
 1. **Clone this repo** into your project:
