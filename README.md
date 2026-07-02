@@ -1,6 +1,6 @@
 # RBUI Agent — RDS/Aurora Resilience Assessment for Kiro CLI
 
-A Kiro CLI agent that uncovers hidden resilience blockers in your AWS RDS and Aurora infrastructure — the gap between documented DR capabilities and actual achievable RTO/RPO.
+A read-only Kiro CLI agent that uncovers hidden resilience blockers in your AWS RDS and Aurora infrastructure — the gap between documented DR capabilities and actual achievable RTO/RPO.
 
 ## Overview
 
