@@ -418,11 +418,14 @@ rules:
 
 ### P1 — Enable Multi-AZ (Zero Downtime)
 ```bash
+# Deferred (recommended) — applies during next maintenance window
+
 aws rds modify-db-instance \
-  --db-instance-identifier {{INSTANCE_ID}} \
-  --multi-az \
-  --apply-immediately \
-  --region {{REGION}}
+  --db-instance-identifier {{INSTANCE_ID}} --multi-az --region {{REGION}}
+
+# Immediate — WARNING: --apply-immediately can trigger a failover / brief outage NOW
+
+#   append --apply-immediately only if you accept that risk
 ```
 **Impact:** RTO drops from 30-60min to 60-120s. Cost: ~2x instance.
 
