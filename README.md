@@ -41,9 +41,9 @@ The prerequisite of this agent is to install Kiro CLI from https://kiro.dev/
 |----------|-----------|-------|---------|
 | Failover Timing | FT- | 8 | Aurora single-writer without readers → 10-15 min RTO |
 | Snapshot Restore | SR- | 10 | Lazy loading from S3 — "available" ≠ performant |
-| Encryption | EN- | 6 | Unencrypted DB blocks ALL cross-region DR paths |
+| Encryption | EN- | 5 | Unencrypted DB blocks ALL cross-region DR paths |
 | KMS Throttling | KT- | 4 | Parallel encrypted restores share 5,500 req/s quota |
-| Cross-Region DR | CR- | 14 | Version mismatch silently breaks Global Database failover |
+| Cross-Region DR | CR- | 13 | Version mismatch silently breaks Global Database failover |
 | Application Layer | AL- | 6 | JVM DNS cache can be infinite — never reconnects |
 | Account Quotas | QT- | 20 | Only 5 concurrent cross-region snapshot copies allowed |
 
