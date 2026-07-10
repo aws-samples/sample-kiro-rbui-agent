@@ -20,7 +20,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 
 ---
 
-## BLOCKER CATALOG: RDS/Aurora Hidden Resilience Constraints (67 Blockers, 7 Categories)
+## BLOCKER CATALOG: RDS/Aurora Hidden Resilience Constraints (66 Blockers, 7 Categories)
 
 ### Category 1: FAILOVER TIMING (In-Region HA)
 
@@ -82,12 +82,11 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 | CR-06 | Some engine versions require IDENTICAL patch levels for switchover/failover | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Patch drift silently breaks DR capability |
 | CR-07 | Aurora Global Database does NOT support Backtrack | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Cannot use fast point-in-time rollback with global topology |
 | CR-08 | Aurora Global Database does NOT support Aurora Auto Scaling for secondary clusters | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Secondary must be manually sized; may be under-provisioned for DR promotion. This means that while your primary cluster can use Aurora Auto Scaling to dynamically add/remove readers based on load, secondary clusters in other regions cannot. You must manually provision and size reader instances in secondary regions. The DR risk is that if/when you promote a secondary cluster to primary during a failover event, it may be under-provisioned to handle the full production workload if it wasn't manually sized to match primary capacity. |
-| CR-09 | Cannot apply custom parameter group during major version upgrade of global database | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Post-upgrade manual PG application required per region |
-| CR-10 | Secrets Manager NOT supported with Aurora Global Database | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Must disable SM integration before adding to global; credential management gap |
-| CR-11 | Automatic minor version upgrade has NO EFFECT on global database clusters | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Manual upgrade coordination required across all regions |
-| CR-12 | Aurora Global Database: primary cluster based on RDS PostgreSQL replica CANNOT create secondary | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Specific migration path blocks global DR setup |
-| CR-13 | Cannot stop/start Aurora DB clusters in global database individually | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Cost management limited; cannot hibernate secondary clusters |
-| CR-14 | Aurora Global Database replication is ASYNCHRONOUS — sub-second typical but NOT guaranteed | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Under heavy write load, replication lag can exceed 1 second |
+| CR-09 | Cannot apply custom parameter group during major version upgrade of global database | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Post-upgrade manual PG application required per region|
+| CR-10 | Automatic minor version upgrade has NO EFFECT on global database clusters | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Manual upgrade coordination required across all regions |
+| CR-11 | Aurora Global Database: primary cluster based on RDS PostgreSQL replica CANNOT create secondary | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Specific migration path blocks global DR setup |
+| CR-12 | Cannot stop/start Aurora DB clusters in global database individually | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Cost management limited; cannot hibernate secondary clusters |
+| CR-13 | Aurora Global Database replication is ASYNCHRONOUS — sub-second typical but NOT guaranteed | [Aurora Global Database](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | Under heavy write load, replication lag can exceed 1 second |
 
 ### Category 6: APPLICATION-LAYER RESILIENCE GAPS
 
