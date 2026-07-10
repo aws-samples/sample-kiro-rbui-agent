@@ -64,7 +64,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 
 | ID | Blocker | Documentation Source | Impact |
 |----|---------|---------------------|--------|
-| KT-01 | Symmetric cryptographic operations quota: 5,500 req/s in most regions (10,000 in us-east-1, us-west-2, eu-west-1) | [KMS Request Quotas](https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) | Parallel encrypted restores share this quota with ALL other services |
+| KT-01 | Symmetric cryptographic operations quota: 5,500 (or 10,000 or 50,000 depending upon your AWS Region)  | [KMS Request Quotas](https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) | Parallel encrypted restores share this quota with ALL other services |
 | KT-02 | KMS quota is SHARED across all services using the same key in the same region | [KMS Throttling](https://docs.aws.amazon.com/kms/latest/developerguide/throttling.html) | RDS restore competes with S3 SSE, EBS, Lambda, etc. for KMS capacity |
 | KT-03 | Exceeding KMS quota returns ThrottlingException — restore operations may stall or fail | [KMS ThrottlingException](https://repost.aws/knowledge-center/kms-throttlingexception-error) | DR event with many parallel restores can self-throttle |
 | KT-04 | CreateGrant quota: 50 req/s — each encrypted RDS operation requires a KMS grant | [KMS Request Quotas](https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) | Bottleneck when restoring many encrypted instances simultaneously |
