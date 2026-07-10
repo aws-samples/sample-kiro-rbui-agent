@@ -58,7 +58,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 | EN-02 | Once encrypted, KMS key CANNOT be changed directly — requires snapshot/copy/restore cycle | [RDS Encryption](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html) | [Key rotation requires full migration event](https://repost.aws/knowledge-center/update-encryption-key-rds)|
 | EN-03 | Cross-region snapshot copy requires RE-ENCRYPTION with destination region KMS key in both RDS and Aurora since  KMS keys are regional constructs | [Cross-Account Cross-Region Aurora](https://aws.amazon.com/blogs/architecture/field-notes-how-to-set-up-your-cross-account-and-cross-region-database-for-amazon-aurora/) | Adds time + requires pre-provisioned KMS key in target region |
 | EN-04 | AWS-managed KMS key (aws/rds) CANNOT be used for cross-account backup copy | [Cross-Account Backups](https://aws.amazon.com/blogs/storage/protecting-amazon-rds-db-instances-encrypted-using-kms-aws-managed-key-with-cross-account-and-cross-region-backups/) | Must use customer-managed CMK for any cross-account DR |
-| EN-05 | KMS `inaccessible-encryption-credentials` state is TERMINAL for Aurora Global Database clusters | [Aurora Global Database Limitations](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | No recovery possible if KMS key access is lost |
+| EN-05 | KMS `inaccessible-encryption-credentials` state is immediately  TERMINAL for Aurora Global Database clusters if the key itself has been deleted | [Aurora Global Database Limitations](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | No recovery possible if KMS key access is lost |
 
 ### Category 4: KMS API THROTTLING
 
