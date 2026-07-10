@@ -73,7 +73,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
   - DynamoDB encryption
   - All other KMS-integrated services
   
-  ...all compete for the same per-account, per-region symmetric cryptographic operations quota. |
+  ...all compete for the same per-account, per-region symmetric cryptographic operations quota. 
 | KT-02 | KMS quota is SHARED across all services using the same key in the same region | [KMS Throttling](https://docs.aws.amazon.com/kms/latest/developerguide/throttling.html) | RDS restore competes with S3 SSE, EBS, Lambda, etc. for KMS capacity |
 | KT-03 | Exceeding KMS quota returns ThrottlingException — restore operations may stall or fail | [KMS ThrottlingException](https://repost.aws/knowledge-center/kms-throttlingexception-error) | DR event with many parallel restores can self-throttle |
 | KT-04 | CreateGrant quota: 50 req/s — each encrypted RDS operation requires a KMS grant | [KMS Request Quotas](https://docs.aws.amazon.com/kms/latest/developerguide/requests-per-second.html) | Bottleneck when restoring many encrypted instances simultaneously |
