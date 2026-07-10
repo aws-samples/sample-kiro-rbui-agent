@@ -77,7 +77,7 @@ sample-kiro-rbui-agent/
 ├── .kiro/
 │   └── agents/
 │       ├── rbui-agent.json       # Agent definition (name, tools, prompt, shortcut)
-│       └── skills.md             # 57 blockers, detection rules, RTO formulas, scoring
+│       └── skills.md             # 66 blockers, detection rules, RTO formulas, scoring
 ├── docs/
 │   ├── BLOCKER-CATALOG.md        # Full blocker reference
 │   └── SCORING.md                # Scoring methodology and formulas
