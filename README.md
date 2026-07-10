@@ -35,11 +35,11 @@ The prerequisite of this agent is to install Kiro CLI from https://kiro.dev/
 
 ## What It Detects
 
-### 69 Blockers Across 7 Categories
+### 68 Blockers Across 7 Categories
 
 | Category | ID Prefix | Count | Example |
 |----------|-----------|-------|---------|
-| Failover Timing | FT- | 9 | Aurora single-writer without readers → 10-15 min RTO |
+| Failover Timing | FT- | 8 | Aurora single-writer without readers → 10-15 min RTO |
 | Snapshot Restore | SR- | 10 | Lazy loading from S3 — "available" ≠ performant |
 | Encryption | EN- | 6 | Unencrypted DB blocks ALL cross-region DR paths |
 | KMS Throttling | KT- | 4 | Parallel encrypted restores share 5,500 req/s quota |
