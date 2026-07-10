@@ -20,7 +20,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 
 ---
 
-## BLOCKER CATALOG: RDS/Aurora Hidden Resilience Constraints (68 Blockers, 7 Categories)
+## BLOCKER CATALOG: RDS/Aurora Hidden Resilience Constraints (67 Blockers, 7 Categories)
 
 ### Category 1: FAILOVER TIMING (In-Region HA)
 
@@ -57,9 +57,8 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 | EN-01 | CANNOT enable encryption on an existing unencrypted RDS/Aurora instance | [Encrypt Existing RDS](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/encrypt-an-existing-amazon-rds-for-postgresql-db-instance.html) | Requires snapshot→encrypt→restore migration (downtime + endpoint change) |
 | EN-02 | Once encrypted, KMS key CANNOT be changed directly — requires snapshot/copy/restore cycle | [RDS Encryption](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html) | [Key rotation requires full migration event](https://repost.aws/knowledge-center/update-encryption-key-rds)|
 | EN-03 | Cross-region snapshot copy requires RE-ENCRYPTION with destination region KMS key in both RDS and Aurora since  KMS keys are regional constructs | [Cross-Account Cross-Region Aurora](https://aws.amazon.com/blogs/architecture/field-notes-how-to-set-up-your-cross-account-and-cross-region-database-for-amazon-aurora/) | Adds time + requires pre-provisioned KMS key in target region |
-| EN-04 | Unencrypted databases CANNOT use cross-region read replicas (Aurora Global Database requires encryption for some configurations) | Architectural constraint | Blocks all cross-region DR paths without first migrating to encrypted |
-| EN-05 | AWS-managed KMS key (aws/rds) CANNOT be used for cross-account backup copy | [Cross-Account Backups](https://aws.amazon.com/blogs/storage/protecting-amazon-rds-db-instances-encrypted-using-kms-aws-managed-key-with-cross-account-and-cross-region-backups/) | Must use customer-managed CMK for any cross-account DR |
-| EN-06 | KMS `inaccessible-encryption-credentials` state is TERMINAL for Aurora Global Database clusters | [Aurora Global Database Limitations](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | No recovery possible if KMS key access is lost |
+| EN-04 | AWS-managed KMS key (aws/rds) CANNOT be used for cross-account backup copy | [Cross-Account Backups](https://aws.amazon.com/blogs/storage/protecting-amazon-rds-db-instances-encrypted-using-kms-aws-managed-key-with-cross-account-and-cross-region-backups/) | Must use customer-managed CMK for any cross-account DR |
+| EN-05 | KMS `inaccessible-encryption-credentials` state is TERMINAL for Aurora Global Database clusters | [Aurora Global Database Limitations](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) | No recovery possible if KMS key access is lost |
 
 ### Category 4: KMS API THROTTLING
 
