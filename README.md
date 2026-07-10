@@ -35,7 +35,7 @@ The prerequisite of this agent is to install Kiro CLI from https://kiro.dev/
 
 ## What It Detects
 
-### 68 Blockers Across 7 Categories
+### 66 Blockers Across 7 Categories
 
 | Category | ID Prefix | Count | Example |
 |----------|-----------|-------|---------|
