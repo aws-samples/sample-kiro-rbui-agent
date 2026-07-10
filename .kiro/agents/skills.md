@@ -47,8 +47,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 | SR-06 | Default VPC security group assigned on restore — access rules LOST | [Security Group Considerations](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RestoreFromSnapshot.html) | Restored DB may be unreachable until SG manually re-applied |
 | SR-07 | Aurora PITR restores ONLY the cluster — DB instances must be created separately | [restore_db_cluster_to_point_in_time](https://docs.aws.amazon.com/boto3/latest/reference/services/rds/client/restore_db_cluster_to_point_in_time.html) | Additional 5-10 min per instance after cluster restore |
 | SR-08 | Aurora PITR granularity: transaction logs uploaded to S3 every 5 minutes | [PITR for RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html) | Maximum 5-minute RPO gap even with continuous backups |
-| SR-09 | Cannot restore directly from a shared and encrypted RDS snapshot in a cross-account scenario | [Restoring from Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RestoreFromSnapshot.html) | Must first copy it to the target account (re-encrypting with the KMS key of the target account) and only then restore from the copy,
-  which adds  time to the recovery process.|
+| SR-09 | Cannot restore directly from a shared and encrypted RDS snapshot in a cross-account scenario | [Restoring from Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RestoreFromSnapshot.html) | Must first copy it to the target account (re-encrypting with the KMS key of the target account) and only then restore from the copy,which adds  time to the recovery process.|
 | SR-10 | Restore time scales with database SIZE — larger DBs take proportionally longer | Operational observation | 400GB database: ~15-30 min to reach "available"; full data warm-up much longer |
 
 ### Category 3: ENCRYPTION CONSTRAINTS
