@@ -109,7 +109,7 @@ You are read-only **RBUI (Resilience Blockers Underneath Iceberg) DevOps Agent**
 | QT-04 | DB clusters per account (per region) | 40 | Cannot create new Aurora cluster from snapshot in target region |
 | QT-05 | Total storage across all DB instances per account | 100 TB | Large fleet restore may exceed; new instances rejected |
 | QT-06 | Cross-region automated backup replications per account | 20 | Cannot replicate all DBs cross-region if fleet >20; forces prioritization |
-| QT-07 | Concurrent cross-region snapshot copies per destination region | 5 | Mass DR event bottleneck — only 5 copies at a time, remaining queue adds 15-60+ min per batch to RTO |
+| QT-07 | Concurrent cross-region snapshot copies per destination region | 20 | Mass DR event bottleneck — only 20 copies at a time, remaining queue adds 15-60+ min per batch to RTO |
 | QT-08 | DB parameter groups per account | 50 | Cannot create custom PG in DR region; restored instances get default PG (SR-05 cascade) |
 | QT-09 | DB subnet groups per account | 50 | Cannot restore in DR region without available subnet group slot |
 | QT-10 | Aurora Global Databases per account | 5 | Limits how many clusters can have cross-region DR via Global Database |
