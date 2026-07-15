@@ -19,7 +19,7 @@ The prerequisite of this agent is to install Kiro CLI from https://kiro.dev/
 
 1. **Clone this repo** into your project:
    ```bash
-   git clone https://github.com/belmacanik-ctrl/sample-kiro-rbui-agent.git
+   git clone https://github.com/aws-samples/sample-kiro-rbui-agent.git
    cd sample-kiro-rbui-agent
    ```
 
