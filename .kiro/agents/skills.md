@@ -149,10 +149,10 @@ rules:
     message: "Cluster quota >80% — cannot create clusters during DR"
 
   - id: DETECT_CROSS_REGION_COPY_BOTTLENECK
-    condition: databases_needing_dr > 5
+    condition: databases_needing_dr > 20
     blockers: [QT-07]
     severity: HIGH
-    message: "More than 5 DBs need cross-region DR — concurrent copy limit will serialize recovery"
+    message: "More than 20 DBs need cross-region DR — concurrent copy limit will serialize recovery"
 
   - id: DETECT_GLOBAL_DB_LIMIT
     condition: global_clusters_count >= 4
