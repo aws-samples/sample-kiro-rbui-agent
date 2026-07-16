@@ -161,7 +161,7 @@ rules:
     message: "Approaching Global Database limit — not all clusters can get cross-region DR"
 
   - id: DETECT_CROSS_REGION_BACKUP_LIMIT
-    condition: cross_region_replications >= 15
+    condition: cross_region_replications >= 20
     blockers: [QT-06]
     severity: MEDIUM
     message: "Approaching cross-region backup replication limit (20 max)"
