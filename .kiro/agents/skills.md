@@ -320,19 +320,19 @@ When assessing a resource, apply these rules to flag blockers:
 rules:
   - id: DETECT_SINGLE_AZ
     condition: multiAZ == false AND dBClusterIdentifier == null
-    blockers: [FT-09]
+    blockers: [FT-08]
     severity: CRITICAL
     message: "Single-AZ RDS instance — AZ failure = full outage"
 
   - id: DETECT_AURORA_NO_READER
     condition: engine starts_with "aurora" AND clusterMembers.count == 1
-    blockers: [FT-07]
+    blockers: [FT-06]
     severity: CRITICAL
     message: "Aurora cluster with single writer — no failover target"
 
   - id: DETECT_UNENCRYPTED
     condition: storageEncrypted == false
-    blockers: [EN-01, EN-04]
+    blockers: [EN-01]
     severity: HIGH
     message: "Unencrypted — blocks all cross-region DR paths"
 
@@ -374,7 +374,7 @@ rules:
 
   - id: DETECT_AWS_MANAGED_KEY
     condition: kmsKeyId contains "alias/aws/rds"
-    blockers: [EN-05]
+    blockers: [EN-04]
     severity: MEDIUM
     message: "AWS-managed key blocks cross-account DR"
 

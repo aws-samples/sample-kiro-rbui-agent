@@ -2,11 +2,11 @@
 
 ## Overview
 
-The RBUI agent checks for **57 hidden resilience blockers** across **7 categories** that create gaps between documented AWS DR capabilities and actual achievable RTO/RPO.
+The RBUI agent checks for **66 hidden resilience blockers** across **7 categories** that create gaps between documented AWS DR capabilities and actual achievable RTO/RPO.
 
 ---
 
-## Category 1: Failover Timing (FT) — 9 Blockers
+## Category 1: Failover Timing (FT) — 8 Blockers
 
 These affect in-region high availability and determine how long failover actually takes.
 
@@ -17,10 +17,9 @@ These affect in-region high availability and determine how long failover actuall
 | FT-03 | Large transactions increase failover time beyond 120s | MEDIUM | Unpredictable failover under load |
 | FT-04 | Aurora DNS TTL = 5s, but client caching extends staleness | MEDIUM | Stale routing window |
 | FT-05 | RDS (non-Aurora) DNS CNAME TTL = 60s | MEDIUM | 60s stale routing after failover |
-| FT-06 | JVM default DNS TTL can be INFINITE | HIGH | Java apps never reconnect |
-| FT-07 | Aurora single-writer without readers: no failover target | CRITICAL | RTO: 10-15 min |
-| FT-08 | Aurora secondary cluster readers restart during primary failover | HIGH | Secondary unavailable during events |
-| FT-09 | Single-AZ RDS: AZ failure = snapshot restore required | CRITICAL | RTO: minutes to hours |
+| FT-06 | Aurora single-writer without readers: no failover target | CRITICAL | RTO: 10-15 min |
+| FT-07 | Aurora secondary cluster readers restart during primary failover | HIGH | Secondary unavailable during events |
+| FT-08 | Single-AZ RDS: AZ failure = snapshot restore required | CRITICAL | RTO: minutes to hours |
 
 ---
 
@@ -39,11 +38,11 @@ These affect recovery time when restoring from backups.
 | SR-07 | Aurora PITR restores cluster only — instances added separately | MEDIUM | +5-10 min per instance |
 | SR-08 | PITR granularity: transaction logs uploaded every 5 min | MEDIUM | 5-min RPO gap minimum |
 | SR-09 | Cannot restore from shared AND encrypted snapshot directly | MEDIUM | Must copy first |
-| SR-10 | Restore time scales with database size | INFO | 400GB ≈ 15-30 min to available |
+| SR-10 | PITR duration varies: transaction log replay since the last automated snapshot | INFO | Same instance can restore fast or slow depending on log volume |
 
 ---
 
-## Category 3: Encryption Constraints (EN) — 6 Blockers
+## Category 3: Encryption Constraints (EN) — 5 Blockers
 
 These create cascading failures that block entire DR paths.
 
@@ -52,9 +51,8 @@ These create cascading failures that block entire DR paths.
 | EN-01 | Cannot enable encryption on existing unencrypted instance | HIGH | Requires snapshot→encrypt→restore migration |
 | EN-02 | KMS key cannot be changed directly | MEDIUM | Key rotation requires full migration |
 | EN-03 | Cross-region snapshot copy requires re-encryption | MEDIUM | Adds time + pre-provisioned key needed |
-| EN-04 | Unencrypted DBs cannot use cross-region replicas/Global DB | HIGH | Blocks ALL cross-region DR |
-| EN-05 | AWS-managed key (aws/rds) blocks cross-account backup copy | MEDIUM | Must use customer-managed CMK |
-| EN-06 | KMS inaccessible-encryption-credentials status that is not recovered in 7 days  is TERMINAL for Global DB | CRITICAL | No recovery if key access lost |
+| EN-04 | AWS-managed key (aws/rds) blocks cross-account backup copy | MEDIUM | Must use customer-managed CMK |
+| EN-05 | KMS inaccessible-encryption-credentials status that is not recovered in 7 days  is TERMINAL for Global DB | CRITICAL | No recovery if key access lost |
 
 ---
 
@@ -64,14 +62,14 @@ These create bottlenecks during mass DR events.
 
 | ID | Blocker | Severity | Impact |
 |----|---------|----------|--------|
-| KT-01 | Symmetric operations quota: 5,500 req/s (most regions) | MEDIUM | Parallel restores share this |
+| KT-01 | Symmetric operations quota: 5,500, 10,000 or 50,000 req/s depending on Region | MEDIUM | Parallel restores share this |
 | KT-02 | KMS quota shared across ALL services using same key | HIGH | RDS competes with S3, EBS, Lambda |
 | KT-03 | Exceeding quota returns ThrottlingException | HIGH | Restores stall or fail |
 | KT-04 | CreateGrant quota: 50 req/s — each RDS operation needs one | HIGH | Bottleneck for fleet restores |
 
 ---
 
-## Category 5: Cross-Region DR Constraints (CR) — 14 Blockers
+## Category 5: Cross-Region DR Constraints (CR) — 13 Blockers
 
 These affect cross-region disaster recovery capabilities.
 
@@ -86,11 +84,10 @@ These affect cross-region disaster recovery capabilities.
 | CR-07 | Global DB does NOT support Backtrack | LOW | No fast rollback with global |
 | CR-08 | Global DB: no Auto Scaling for secondary clusters | MEDIUM | Secondary may be under-provisioned |
 | CR-09 | Cannot apply custom PG during major version upgrade | MEDIUM | Manual PG application per region |
-| CR-10 | Secrets Manager NOT supported with Global DB | MEDIUM | Credential management gap |
-| CR-11 | Auto minor version upgrade has NO EFFECT on global clusters | MEDIUM | Manual coordination required |
-| CR-12 | Primary from RDS PG replica cannot create secondary | LOW | Specific migration path blocked |
-| CR-13 | Cannot stop/start individual clusters in Global DB | LOW | Cost management limited |
-| CR-14 | Replication is async — sub-second typical but NOT guaranteed | MEDIUM | Lag can exceed 1s under load |
+| CR-10 | Auto minor version upgrade has NO EFFECT on global clusters | MEDIUM | Manual coordination required |
+| CR-11 | Primary from RDS PG replica cannot create secondary | LOW | Specific migration path blocked |
+| CR-12 | Cannot stop/start individual clusters in Global DB | LOW | Cost management limited |
+| CR-13 | Replication is async — sub-second typical but NOT guaranteed | MEDIUM | Lag can exceed 1s under load |
 
 ---
 
@@ -142,7 +139,7 @@ These silently block DR operations when limits are reached.
 
 When assessing an account, apply rules in this order:
 
-1. **CRITICAL** — immediate operational risk (FT-07, FT-09, CR-05, QT-03, QT-04, EN-06)
-2. **HIGH** — blocks DR paths or causes extended outages (EN-01, EN-04, CR-01, AL-01, AL-02)
-3. **MEDIUM** — degrades recovery or limits options (SR-05, SR-08, KT-01, CR-14)
-4. **LOW** — suboptimal but not blocking (SR-02, CR-07, CR-13)
+1. **CRITICAL** — immediate operational risk (FT-06, FT-08, CR-05, QT-03, QT-04, EN-05)
+2. **HIGH** — blocks DR paths or causes extended outages (EN-01, CR-01, AL-01, AL-02)
+3. **MEDIUM** — degrades recovery or limits options (SR-05, SR-08, KT-01, EN-04, CR-13)
+4. **LOW** — suboptimal but not blocking (SR-02, CR-07, CR-12)

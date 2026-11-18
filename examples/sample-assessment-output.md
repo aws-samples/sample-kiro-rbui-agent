@@ -28,9 +28,9 @@
 
 | Severity | Blocker ID | Resource | Description | RTO/RPO Impact |
 |----------|-----------|----------|-------------|---------------|
-| 🔴 CRITICAL | FT-07 | analytics-cluster | Aurora single writer, no readers — no automatic failover target | RTO: 10-15 min |
-| 🔴 CRITICAL | FT-09 | staging-db | Single-AZ — AZ failure = full outage requiring snapshot restore | RTO: 15-30 min |
-| 🟠 HIGH | EN-01, EN-04 | staging-db | Unencrypted — blocks all cross-region DR paths | Blocks DR |
+| 🔴 CRITICAL | FT-06 | analytics-cluster | Aurora single writer, no readers — no automatic failover target | RTO: 10-15 min |
+| 🔴 CRITICAL | FT-08 | staging-db | Single-AZ — AZ failure = full outage requiring snapshot restore | RTO: 15-30 min |
+| 🟠 HIGH | EN-01 | staging-db | Unencrypted — blocks all cross-region DR paths | Blocks DR |
 | 🟠 HIGH | CR-01 | ALL resources | No cross-region DR configured — regional failure = total outage | RTO: hours |
 | 🟠 HIGH | — | analytics-cluster | Deletion protection OFF — accidental deletion risk | RPO: up to 24h |
 | 🟡 MEDIUM | CR-05 | ALL | Mixed versions (15.8 vs 16.4) — blocks Global Database | Must align versions |
