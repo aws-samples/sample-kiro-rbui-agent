@@ -107,6 +107,10 @@ sample-kiro-rbui-agent/
         "rds:DescribeAccountAttributes",
         "kms:DescribeKey",
         "kms:ListAliases",
+        "rds:DescribePendingMaintenanceActions",
+        "rds:DescribeDBInstanceAutomatedBackups",
+        "rds:DescribeDBSnapshotAttributes",
+        "rds:DescribeDBProxies",
         "service-quotas:GetServiceQuota",
         "service-quotas:ListServiceQuotas"
       ],
